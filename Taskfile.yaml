@@ -1,0 +1,22 @@
+version: '3'
+
+dotenv: ['.config/build/.env']
+
+includes:
+  vars: .config/build/vars.yaml
+  common:
+    taskfile: .config/build/Taskfile_common.yaml
+    internal: true
+  utility:
+    taskfile: .config/build/Taskfile_{{OS}}_utility.yml
+    internal: true
+  dev: .config/build/Taskfile_dev.yaml
+  git: .config/build/Taskfile_git.yaml
+  docker: .config/build/Taskfile_docker.yaml
+  ci-local: .config/build/Taskfile_ci-local.yaml
+
+tasks:
+  default:
+    cmds:
+      - task -l
+    silent: true
