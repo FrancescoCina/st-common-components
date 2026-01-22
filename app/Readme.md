@@ -211,8 +211,6 @@ Aggiungi anche al file `.gitmodules` del progetto parent:
 #### 1. Sviluppare Nuovi Componenti
 
 ```bash
-# Dal progetto parent, entra nel submodule
-cd TECO_LLM_storyteller-common-components
 
 # Assicurati di essere sul branch master aggiornato
 git checkout master
@@ -230,33 +228,21 @@ npm install
 # Sviluppa con Storybook
 npm run storybook
 
-# ... sviluppa i tuoi componenti ...
 ```
 
 #### 2. Committare e Pushare dal Submodule
 
 ```bash
-# Ancora dentro TECO_LLM_storyteller-common-components/
-# Esegui linting e test
-cd app
-npm run lint
-npm test
-
-# Torna alla root del submodule
-cd ..
-
 # Stage e commit delle modifiche
 git add .
 git commit -m "feat: aggiungi BasicInput component"
 
-# Pusha al repository del submodule
+# Push
 git push origin feature/nuovo-componente
 git checkout master
 git merge feature/nuovo-componente
 git push origin master
 
-# Torna al progetto parent
-cd ..
 ```
 
 #### 3. Aggiornare il Riferimento nel Parent
@@ -272,7 +258,7 @@ git status
 # Output: modified:   TECO_LLM_storyteller-common-components (new commits)
 
 # Stage e committa il nuovo riferimento
-git add TECO_LLM_storyteller-common-components
+git add .
 git commit -m "chore: aggiorna TECO_LLM_storyteller-common-components - aggiunti nuovi componenti"
 git push
 ```
