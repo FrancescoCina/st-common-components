@@ -171,7 +171,7 @@ npm run format           # Formatta il codice con Prettier
 npm run preview          # Preview della build di produzione
 ```
 
-## 🔄 Gestione e Aggiornamento del Submodule
+## 🔄 Gestione e Aggiornamento del Submoduleeeee
 
 ### Setup Iniziale per Prevenire Modifiche Accidentali
 
