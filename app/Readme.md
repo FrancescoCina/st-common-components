@@ -1,6 +1,6 @@
 # ST Common Components
 
-Una libreria di componenti UI/UX condivisi progettata per essere utilizzata come submodule Git in altre applicazioni del progetto ST.
+Una libreria di componenti UI/UX condivisi progettata per essere utilizzata come submodule Git in altre applicazioni del progetto Storyteller.
 
 ## 📋 Indice
 
@@ -230,7 +230,7 @@ npm run storybook
 
 ```
 
-#### 2. Committare e Pushare dal Submodule
+#### 2. Committare e Pushare il Submodule
 
 ```bash
 # Stage e commit delle modifiche
@@ -247,54 +247,40 @@ git push origin master
 
 #### 3. Aggiornare il Riferimento nel Parent
 
-Dopo aver pushato le modifiche nel submodule, aggiorna il riferimento nel parent:
+Dopo aver pushato le modifiche nel submodule, aggiorna sempre il parent con lo stesso comando:
 
 ```bash
 # Nel progetto parent (directory root)
-# Git rileva che il submodule punta a un nuovo commit
 
-# Verifica lo stato
-git status
-# Output: modified:   TECO_LLM_storyteller-common-components (new commits)
-
-# Stage e committa il nuovo riferimento
-git add .
-git commit -m "chore: aggiorna TECO_LLM_storyteller-common-components - aggiunti nuovi componenti"
-git push
-```
-
-### Aggiornamento Automatico dal Remote
-
-Quando qualcun altro ha aggiornato il submodule e vuoi sincronizzare:
-
-```bash
-# Nel progetto parent
+# Scarica l'ultima versione del branch master del submodule
 git submodule update --remote --merge
 
-# Oppure usa l'alias se l'hai configurato
-git update-components
-
-# Committa il riferimento aggiornato
+# Committa il nuovo riferimento al submodule
 git add TECO_LLM_storyteller-common-components
 git commit -m "chore: aggiorna TECO_LLM_storyteller-common-components submodule"
 git push
 ```
 
-**Cosa fa `--merge`**: Mantiene il submodule sul branch `master` e mergia le modifiche remote invece di lasciarlo in stato "detached HEAD". Questo permette di continuare a lavorare normalmente nel submodule.
+**Cosa fa `--remote --merge`**: 
+- `--remote`: Scarica l'ultimo commit del branch `master` del submodule (configurato in `.gitmodules`)
+- `--merge`: Mantiene il submodule sul branch `master` e mergia le modifiche remote invece di lasciarlo in stato "detached HEAD"
+
+**Importante**: Il parent è configurato per seguire sempre il branch `master` del submodule. Il comando è identico sia che le modifiche le abbia fatte tu sia che le abbia fatte un collega, perché stai sempre prendendo l'ultima versione di `master`.
 
 ### Sincronizzare Modifiche da Altri Sviluppatori
 
-Quando un collega ha aggiornato il riferimento del submodule nel parent:
+Quando un collega ha pushato modifiche al submodule, sincronizza il tuo ambiente:
 
 ```bash
 # Nel progetto parent
-git pull
 
-# Aggiorna i submodules al nuovo riferimento
+# Aggiorna all'ultimo commit del branch master del submodule
 git submodule update --remote --merge
 
-# Verifica che tutto sia allineato
-git submodule status
+# Se hai fatto modifiche locali al parent, committa il riferimento aggiornato
+git add TECO_LLM_storyteller-common-components
+git commit -m "chore: sync TECO_LLM_storyteller-common-components to latest"
+git push
 ```
 
 ### Gestione Conflitti
@@ -471,27 +457,6 @@ Assicurati che il progetto parent abbia le peer dependencies necessarie:
 - ❌ **DON'T**: Non aggiungere il submodule al `.gitignore` del parent
 - ❌ **DON'T**: Non lasciare modifiche non committate nel submodule
 - ❌ **DON'T**: Non lavorare in stato "detached HEAD"
-
-## 🤝 Contributing
-
-Per contribuire a questo progetto:
-
-1. Entra nel submodule: `cd TECO_LLM_storyteller-common-components`
-2. Crea un branch feature: `git checkout -b feature/nome-feature`
-3. Implementa le modifiche seguendo le convenzioni stabilite
-4. Esegui linting e testing: `cd app && npm run lint && npm test`
-5. Committa nel submodule: `git add . && git commit -m "feat: descrizione"`
-6. Pusha: `git push origin feature/nome-feature`
-7. Crea una pull request per review
-8. Dopo il merge su master, aggiorna il riferimento nel progetto parent
-
-## 📄 License
-
-ISC
-
-## 👥 Authors
-
-ST Team
 
 ---
 
